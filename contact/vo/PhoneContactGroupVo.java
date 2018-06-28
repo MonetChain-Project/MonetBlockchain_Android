@@ -7,33 +7,33 @@ import java.util.List;
  */
 public class PhoneContactGroupVo {
 
-	private String groupName;
-	private int type;
-	private List<PhoneContactVo> mContactList;
-	
-	public int getType() {
-		return type;
-	}
+    private String groupName;
+    private int type;
+    private List<PhoneContactVo> mContactList;
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
 
-	public String getGroupName() {
-		return groupName;
-	}
+    public String getGroupName() {
+        return groupName;
+    }
 
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
-	public List<PhoneContactVo> getContactList() {
-		return mContactList;
-	}
+    public List<PhoneContactVo> getContactList() {
+        return mContactList;
+    }
 
-	public void setContactList(List<PhoneContactVo> mList) {
-		this.mContactList = mList;
-	}
+    public void setContactList(List<PhoneContactVo> mList) {
+        this.mContactList = mList;
+    }
 
 }

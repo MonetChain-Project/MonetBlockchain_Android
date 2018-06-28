@@ -2,7 +2,6 @@ package com.lingtuan.firefly.contact.vo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import org.json.JSONObject;
 
 import java.util.UUID;
@@ -12,187 +11,188 @@ import java.util.UUID;
  */
 public class FriendRecommentVo implements Parcelable {
 
-	private String msgId;// The default message body ID is UUID
-	private String friendId;// Address book or weibo id (corresponding typelist passed in the data, if is the address book transfer a phone number, if it is weibo friends, send weibo id)
-	private String uid;//Is uid contacts, sina, tencent weibo about your sister account have been registered and binding the uid (if base value is 0, the user has not registered about your sister destid returns an empty)
-	private String username;// User nickname (type value not only to 0)
-	private String pic;// Avatars artwork (type value not only to 0)
-	private String thumb;// User image thumbnails (type value not only to 0)
-	private String thirdName;//The third party communications nickname Such as a directory name Or weibo nickname
-	private int type;// 1.Mobile address book, 2. Sina weibo friends, 3. Tencent weibo friends
-	private long time;//time
-	private int unread;//Unread item number
-	private boolean isAgree;//Whether have agreed to
+    private String msgId;// The default message body ID is UUID
+    private String friendId;// Address book or weibo id (corresponding typelist passed in the data, if is the address book transfer a phone number, if it is weibo friends, send weibo id)
+    private String uid;//Is uid contacts, sina, tencent weibo about your sister account have been registered and binding the uid (if base value is 0, the user has not registered about your sister destid returns an empty)
+    private String username;// User nickname (type value not only to 0)
+    private String pic;// Avatars artwork (type value not only to 0)
+    private String thumb;// User image thumbnails (type value not only to 0)
+    private String thirdName;//The third party communications nickname Such as a directory name Or weibo nickname
+    private int type;// 1.Mobile address book, 2. Sina weibo friends, 3. Tencent weibo friends
+    private long time;//time
+    private int unread;//Unread item number
+    private boolean isAgree;//Whether have agreed to
 
-	
-	public String getThirdName() {
-		return thirdName;
-	}
 
-	public void setThirdName(String thirdName) {
-		this.thirdName = thirdName;
-	}
+    public String getThirdName() {
+        return thirdName;
+    }
 
-	public boolean isAgree() {
-		return isAgree;
-	}
+    public void setThirdName(String thirdName) {
+        this.thirdName = thirdName;
+    }
 
-	public void setAgree(boolean isAgree) {
-		this.isAgree = isAgree;
-	}
+    public boolean isAgree() {
+        return isAgree;
+    }
 
-	public long getUnread() {
-		return unread;
-	}
+    public void setAgree(boolean isAgree) {
+        this.isAgree = isAgree;
+    }
 
-	public void setUnread(int unread) {
-		this.unread = unread;
-	}
+    public long getUnread() {
+        return unread;
+    }
 
-	public long getTime() {
-		return time;
-	}
+    public void setUnread(int unread) {
+        this.unread = unread;
+    }
 
-	public void setTime(long time) {
-		this.time = time;
-	}
+    public long getTime() {
+        return time;
+    }
 
-	public FriendRecommentVo(){}
-	
-	public String getMsgId() {
-		return msgId;
-	}
+    public void setTime(long time) {
+        this.time = time;
+    }
 
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
-	}
+    public FriendRecommentVo() {
+    }
 
-	public String getFriendId() {
-		return friendId;
-	}
+    public String getMsgId() {
+        return msgId;
+    }
 
-	public void setFriendId(String friendId) {
-		this.friendId = friendId;
-	}
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 
-	public String getUid() {
-		return uid;
-	}
+    public String getFriendId() {
+        return friendId;
+    }
 
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
+    public void setFriendId(String friendId) {
+        this.friendId = friendId;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUid() {
+        return uid;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-	public String getPic() {
-		return pic;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPic(String pic) {
-		this.pic = pic;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getThumb() {
-		return thumb;
-	}
+    public String getPic() {
+        return pic;
+    }
 
-	public void setThumb(String thumb) {
-		this.thumb = thumb;
-	}
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
-	public int getType() {
-		return type;
-	}
+    public String getThumb() {
+        return thumb;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
 
-	/**
-	 * Information for parsing XMPP
-	 */
-	public FriendRecommentVo parseXmpp(String json) {
-		try {
+    public int getType() {
+        return type;
+    }
 
-			JSONObject obj = new JSONObject(json);
-			uid = obj.optString("userid");
-			username = obj.optString("username");
-			thumb = obj.optString("userimage");
-			type = obj.optInt("soucetype");
-			friendId = obj.optString("sourceid");
+    public void setType(int type) {
+        this.type = type;
+    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return this;
-	}
+    /**
+     * Information for parsing XMPP
+     */
+    public FriendRecommentVo parseXmpp(String json) {
+        try {
 
-	/**
-	 * Parsing the Http message is special
-	 */
-	public FriendRecommentVo parseHttp(String json) {
-		try {
-			JSONObject obj = new JSONObject(json);
-			uid = obj.optString("destid");
-			username = obj.optString("username");
-			thumb = obj.optString("thumb");
-			friendId = obj.optString("friendid");
-			msgId = UUID.randomUUID().toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return this;
-	}
+            JSONObject obj = new JSONObject(json);
+            uid = obj.optString("userid");
+            username = obj.optString("username");
+            thumb = obj.optString("userimage");
+            type = obj.optInt("soucetype");
+            friendId = obj.optString("sourceid");
 
-	@Override
-	public int describeContents() {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 
-		return 0;
-	}
+    /**
+     * Parsing the Http message is special
+     */
+    public FriendRecommentVo parseHttp(String json) {
+        try {
+            JSONObject obj = new JSONObject(json);
+            uid = obj.optString("destid");
+            username = obj.optString("username");
+            thumb = obj.optString("thumb");
+            friendId = obj.optString("friendid");
+            msgId = UUID.randomUUID().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(msgId);
-		dest.writeString(friendId);
-		dest.writeString(uid);
-		dest.writeString(username);
-		dest.writeString(pic);
-		dest.writeString(thumb);
-		dest.writeString(thirdName);
-		dest.writeInt(type);
-		dest.writeLong(time);
-		dest.writeInt(unread);
-		dest.writeInt(isAgree ? 1 : 0);
-	}
+    @Override
+    public int describeContents() {
 
-	public static final Parcelable.Creator<FriendRecommentVo> CREATOR = new Parcelable.Creator<FriendRecommentVo>() {
-		public FriendRecommentVo createFromParcel(Parcel in) {
-			return new FriendRecommentVo(in);
-		}
+        return 0;
+    }
 
-		public FriendRecommentVo[] newArray(int size) {
-			return new FriendRecommentVo[size];
-		}
-	};
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(msgId);
+        dest.writeString(friendId);
+        dest.writeString(uid);
+        dest.writeString(username);
+        dest.writeString(pic);
+        dest.writeString(thumb);
+        dest.writeString(thirdName);
+        dest.writeInt(type);
+        dest.writeLong(time);
+        dest.writeInt(unread);
+        dest.writeInt(isAgree ? 1 : 0);
+    }
 
-	private FriendRecommentVo(Parcel in) {
-		msgId = in.readString();
-		friendId = in.readString();
-		uid = in.readString();
-		username = in.readString();
-		pic = in.readString();
-		thumb = in.readString();
-		thirdName = in.readString();
-		type = in.readInt();
-		time = in.readLong();
-		unread = in.readInt();
-		isAgree = in.readInt() == 1 ? true : false;
-	}
+    public static final Parcelable.Creator<FriendRecommentVo> CREATOR = new Parcelable.Creator<FriendRecommentVo>() {
+        public FriendRecommentVo createFromParcel(Parcel in) {
+            return new FriendRecommentVo(in);
+        }
+
+        public FriendRecommentVo[] newArray(int size) {
+            return new FriendRecommentVo[size];
+        }
+    };
+
+    private FriendRecommentVo(Parcel in) {
+        msgId = in.readString();
+        friendId = in.readString();
+        uid = in.readString();
+        username = in.readString();
+        pic = in.readString();
+        thumb = in.readString();
+        thirdName = in.readString();
+        type = in.readInt();
+        time = in.readLong();
+        unread = in.readInt();
+        isAgree = in.readInt() == 1 ? true : false;
+    }
 }

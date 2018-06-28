@@ -6,20 +6,21 @@ import com.lingtuan.firefly.vo.UserBaseVo;
 
 public class NewContactVO extends UserBaseVo implements ContactItemInterface {
 
-	private static final long serialVersionUID = 1L;
-	private String fullName;
-	@Override
-	public String getItemForIndex() {
-		return fullName;
-	}
+    private static final long serialVersionUID = 1L;
+    private String fullName;
 
-	public void setFullName(String fullName) {
-		this.fullName=fullName;
-	}
+    @Override
+    public String getItemForIndex() {
+        return fullName;
+    }
 
-	@Override
-	public String getDisplayInfo() {
-		return username;
-	}
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    @Override
+    public String getDisplayInfo() {
+        return username;
+    }
 
 }
