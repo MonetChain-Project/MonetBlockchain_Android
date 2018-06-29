@@ -161,7 +161,7 @@ public abstract class WheelPicker extends ConfirmPopup<View> {
 
     /**
      * Set the option offset, which can be used to set the number of entries to display, in the range of 1-5.
-   * 1 shows 3, 2 shows 5, 3 shows 7
+     *    * 1 shows 3, 2 shows 5, 3 shows 7
      */
     public void setOffset(@IntRange(from = 1, to = 5) int offset) {
         this.offset = offset;

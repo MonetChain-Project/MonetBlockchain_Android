@@ -10,26 +10,25 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.lingtuan.firefly.R;
 import com.lingtuan.firefly.util.Utils;
 
 
 public class SubmitDialog extends Dialog {
- 
+
     public SubmitDialog(Context context, int theme) {
         super(context, theme);
     }
- 
+
     public SubmitDialog(Context context) {
         super(context);
     }
- 
+
     /**
      * Helper class for creating a custom dialog
      */
     public static class Builder {
- 
+
         private Context context;
         private String title;
         private String message;
@@ -38,7 +37,7 @@ public class SubmitDialog extends Dialog {
         private View contentView;
         private int color;
         private int type;//0 version 1 offline 2 network
-        private DialogInterface.OnClickListener positiveButtonClickListener,negativeButtonClickListener;
+        private DialogInterface.OnClickListener positiveButtonClickListener, negativeButtonClickListener;
 
         private SubmitDialog dialog;
 
@@ -48,16 +47,19 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the Dialog setCancelable
+         *
          * @return
          */
-        public void setCancelable(boolean cancelable){
-        	if(dialog!=null){
-        		dialog.setCancelable(cancelable);
-        		dialog.setCanceledOnTouchOutside(cancelable);
-        	}
+        public void setCancelable(boolean cancelable) {
+            if (dialog != null) {
+                dialog.setCancelable(cancelable);
+                dialog.setCanceledOnTouchOutside(cancelable);
+            }
         }
+
         /**
          * Set the Dialog message from String
+         *
          * @return
          */
         public Builder setMessage(String message) {
@@ -67,6 +69,7 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the Dialog message from resource
+         *
          * @return
          */
         public Builder setMessage(int message) {
@@ -76,6 +79,7 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the Dialog title from resource
+         *
          * @param title
          * @return
          */
@@ -86,6 +90,7 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the Dialog title from String
+         *
          * @param title
          * @return
          */
@@ -96,8 +101,8 @@ public class SubmitDialog extends Dialog {
 
         /**
          * is offline
-         * */
-        public void setDialogType(int type){
+         */
+        public void setDialogType(int type) {
             this.type = type;
         }
 
@@ -105,6 +110,7 @@ public class SubmitDialog extends Dialog {
          * Set a custom content view for the Dialog.
          * If a message is set, the contentView is not
          * added to the Dialog...
+         *
          * @param v
          * @return
          */
@@ -115,11 +121,12 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the positive button resource and it's listener
+         *
          * @param positiveButtonText
          * @param listener
          * @return
          */
-        public Builder setPositiveButton(int positiveButtonText,DialogInterface.OnClickListener listener) {
+        public Builder setPositiveButton(int positiveButtonText, DialogInterface.OnClickListener listener) {
             this.positiveButtonText = (String) context.getText(positiveButtonText);
             this.positiveButtonClickListener = listener;
             return this;
@@ -127,13 +134,14 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the positive button resource and it's listener
+         *
          * @param positiveButtonText
          * @param listener
          * @param color
          * @return
          */
-        public Builder setPositiveButton(int positiveButtonText,DialogInterface.OnClickListener listener, int color) {
-            this.positiveButtonText = (String) context .getText(positiveButtonText);
+        public Builder setPositiveButton(int positiveButtonText, DialogInterface.OnClickListener listener, int color) {
+            this.positiveButtonText = (String) context.getText(positiveButtonText);
             this.positiveButtonClickListener = listener;
             this.color = color;
             return this;
@@ -141,11 +149,12 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the positive button text and it's listener
+         *
          * @param positiveButtonText
          * @param listener
          * @return
          */
-        public Builder setPositiveButton(String positiveButtonText,DialogInterface.OnClickListener listener) {
+        public Builder setPositiveButton(String positiveButtonText, DialogInterface.OnClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
             return this;
@@ -153,11 +162,12 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the negative button resource and it's listener
+         *
          * @param negativeButtonText
          * @param listener
          * @return
          */
-        public Builder setNegativeButton(int negativeButtonText,DialogInterface.OnClickListener listener) {
+        public Builder setNegativeButton(int negativeButtonText, DialogInterface.OnClickListener listener) {
             this.negativeButtonText = (String) context.getText(negativeButtonText);
             this.negativeButtonClickListener = listener;
             return this;
@@ -165,17 +175,18 @@ public class SubmitDialog extends Dialog {
 
         /**
          * Set the negative button text and it's listener
+         *
          * @param negativeButtonText
          * @param listener
          * @return
          */
-        public Builder setNegativeButton(String negativeButtonText,DialogInterface.OnClickListener listener) {
+        public Builder setNegativeButton(String negativeButtonText, DialogInterface.OnClickListener listener) {
             this.negativeButtonText = negativeButtonText;
             this.negativeButtonClickListener = listener;
             return this;
         }
- 
-      
+
+
         /**
          * Create the custom dialog
          */
@@ -183,24 +194,24 @@ public class SubmitDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final SubmitDialog dialog = new SubmitDialog(context, R.style.SubmitDialog);
-            this.dialog=dialog;
+            this.dialog = dialog;
             View layout = inflater.inflate(R.layout.submit_dialog_layout, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             // set the dialog title
             ((TextView) layout.findViewById(R.id.title)).setText(title);
-            if(TextUtils.isEmpty(title)){
-            	layout.findViewById(R.id.title).setVisibility(View.GONE);
+            if (TextUtils.isEmpty(title)) {
+                layout.findViewById(R.id.title).setVisibility(View.GONE);
             }
 
-            if (type == 0){//update version
+            if (type == 0) {//update version
                 layout.findViewById(R.id.updateVersionBody).setVisibility(View.VISIBLE);
                 layout.findViewById(R.id.offlineBody).setVisibility(View.GONE);
                 layout.findViewById(R.id.smartMeshBody).setVisibility(View.GONE);
-            }else if (type == 1){//offline
+            } else if (type == 1) {//offline
                 layout.findViewById(R.id.updateVersionBody).setVisibility(View.GONE);
                 layout.findViewById(R.id.smartMeshBody).setVisibility(View.GONE);
                 layout.findViewById(R.id.offlineBody).setVisibility(View.VISIBLE);
-            }else{//show net work
+            } else {//show net work
                 layout.findViewById(R.id.smartMeshBody).setVisibility(View.VISIBLE);
                 layout.findViewById(R.id.updateVersionBody).setVisibility(View.GONE);
                 layout.findViewById(R.id.offlineBody).setVisibility(View.GONE);
@@ -213,7 +224,7 @@ public class SubmitDialog extends Dialog {
                     layout.findViewById(R.id.positiveButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    positiveButtonClickListener.onClick(dialog,DialogInterface.BUTTON_POSITIVE);
+                                    positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
                                 }
                             });
                 }
@@ -222,7 +233,7 @@ public class SubmitDialog extends Dialog {
                 layout.findViewById(R.id.positiveButton).setVisibility(View.GONE);
             }
 
-            if(color != 0){
+            if (color != 0) {
                 ((TextView) layout.findViewById(R.id.positiveButton)).setTextColor(color);
             }
             // set the cancel button
@@ -232,17 +243,17 @@ public class SubmitDialog extends Dialog {
                     layout.findViewById(R.id.negativeButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
+                                    negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
                                 }
                             });
                 }
 
             } else {
                 // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.negativeButton).setVisibility( View.GONE);
+                layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
             }
-            if (color != 0){
-            	 ((TextView) layout.findViewById(R.id.negativeButton)).setTextColor(color);
+            if (color != 0) {
+                ((TextView) layout.findViewById(R.id.negativeButton)).setTextColor(color);
             }
             // set the content message
             if (message != null) {
@@ -251,7 +262,7 @@ public class SubmitDialog extends Dialog {
                 // if no message set
                 // add the contentView to the dialog body
                 ((LinearLayout) layout.findViewById(R.id.content)).removeAllViews();
-                LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                 lp.setMargins(Utils.dip2px(context, 15), 0, Utils.dip2px(context, 15), 0);
                 ((LinearLayout) layout.findViewById(R.id.content)).addView(contentView, lp);
             }
@@ -272,18 +283,18 @@ public class SubmitDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final SubmitDialog dialog = new SubmitDialog(context, R.style.SubmitDialog);
-            this.dialog=dialog;
+            this.dialog = dialog;
             View layout = inflater.inflate(R.layout.submit_dialog_wallet_layout, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             // set the dialog title
             ((TextView) layout.findViewById(R.id.title)).setText(title);
-            if(TextUtils.isEmpty(title)){
+            if (TextUtils.isEmpty(title)) {
                 layout.findViewById(R.id.title).setVisibility(View.GONE);
             }
 
             layout.findViewById(R.id.positiveButton).setVisibility(View.GONE);
 
-            if(color != 0){
+            if (color != 0) {
                 ((TextView) layout.findViewById(R.id.positiveButton)).setTextColor(color);
             }
             // set the cancel button
@@ -293,16 +304,16 @@ public class SubmitDialog extends Dialog {
                     layout.findViewById(R.id.negativeButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
+                                    negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
                                 }
                             });
                 }
 
             } else {
                 // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.negativeButton).setVisibility( View.GONE);
+                layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
             }
-            if (color != 0){
+            if (color != 0) {
                 ((TextView) layout.findViewById(R.id.negativeButton)).setTextColor(color);
             }
             // set the content message
@@ -312,7 +323,7 @@ public class SubmitDialog extends Dialog {
                 // if no message set
                 // add the contentView to the dialog body
                 ((LinearLayout) layout.findViewById(R.id.content)).removeAllViews();
-                LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                 lp.setMargins(Utils.dip2px(context, 15), 0, Utils.dip2px(context, 15), 0);
                 ((LinearLayout) layout.findViewById(R.id.content)).addView(contentView, lp);
             }
@@ -333,18 +344,18 @@ public class SubmitDialog extends Dialog {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
             final SubmitDialog dialog = new SubmitDialog(context, R.style.SubmitDialog);
-            this.dialog=dialog;
+            this.dialog = dialog;
             View layout = inflater.inflate(R.layout.submit_dialog_wallet_backup_layout, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             // set the dialog title
             ((TextView) layout.findViewById(R.id.title)).setText(title);
-            if(TextUtils.isEmpty(title)){
+            if (TextUtils.isEmpty(title)) {
                 layout.findViewById(R.id.title).setVisibility(View.GONE);
             }
 
             layout.findViewById(R.id.positiveButton).setVisibility(View.GONE);
 
-            if(color != 0){
+            if (color != 0) {
                 ((TextView) layout.findViewById(R.id.positiveButton)).setTextColor(color);
             }
             // set the cancel button
@@ -354,16 +365,16 @@ public class SubmitDialog extends Dialog {
                     layout.findViewById(R.id.negativeButton)
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
+                                    negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
                                 }
                             });
                 }
 
             } else {
                 // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.negativeButton).setVisibility( View.GONE);
+                layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
             }
-            if (color != 0){
+            if (color != 0) {
                 ((TextView) layout.findViewById(R.id.negativeButton)).setTextColor(color);
             }
             dialog.setContentView(layout);
@@ -374,77 +385,77 @@ public class SubmitDialog extends Dialog {
             dialog.getWindow().setAttributes(params);
             return dialog;
         }
-       
-   
+
+
         /**
          * Create the window custom dialog
          */
-        public void showWindowManager(boolean hasTitle){
-              LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-              // instantiate the dialog with the custom Theme
-              final SubmitDialog dialog = new SubmitDialog(context,R.style.SubmitDialog);
-              this.dialog=dialog;
-              dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-              View layout = inflater.inflate(R.layout.submit_dialog_layout, null);
-              dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-              // set the dialog title
-              if(hasTitle){
-                  ((TextView) layout.findViewById(R.id.title)).setText(title);
-              }else{
-                  layout.findViewById(R.id.title).setVisibility(View.GONE);
-              }
+        public void showWindowManager(boolean hasTitle) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            // instantiate the dialog with the custom Theme
+            final SubmitDialog dialog = new SubmitDialog(context, R.style.SubmitDialog);
+            this.dialog = dialog;
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            View layout = inflater.inflate(R.layout.submit_dialog_layout, null);
+            dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+            // set the dialog title
+            if (hasTitle) {
+                ((TextView) layout.findViewById(R.id.title)).setText(title);
+            } else {
+                layout.findViewById(R.id.title).setVisibility(View.GONE);
+            }
 
-              // set the confirm button
-              if (positiveButtonText != null) {
-                  ((TextView) layout.findViewById(R.id.positiveButton)).setText(positiveButtonText);
-                  if (positiveButtonClickListener != null) {
-                      layout.findViewById(R.id.positiveButton)
-                              .setOnClickListener(new View.OnClickListener() {
-                                  public void onClick(View v) {
-                                      positiveButtonClickListener.onClick(dialog,DialogInterface.BUTTON_POSITIVE);
-                                  }
-                              });
-                  }
+            // set the confirm button
+            if (positiveButtonText != null) {
+                ((TextView) layout.findViewById(R.id.positiveButton)).setText(positiveButtonText);
+                if (positiveButtonClickListener != null) {
+                    layout.findViewById(R.id.positiveButton)
+                            .setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+                                }
+                            });
+                }
 
-              } else {
-                  // if no confirm button just set the visibility to GONE
-                  layout.findViewById(R.id.positiveButton).setVisibility(View.GONE);
-              }
-              // set the cancel button
-              if (negativeButtonText != null) {
-                  ((TextView) layout.findViewById(R.id.negativeButton)).setText(negativeButtonText);
-                  if (negativeButtonClickListener != null) {
-                      layout.findViewById(R.id.negativeButton)
-                              .setOnClickListener(new View.OnClickListener() {
-                                  public void onClick(View v) {
-                                      negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
-                                  }
-                              });
-                  }
+            } else {
+                // if no confirm button just set the visibility to GONE
+                layout.findViewById(R.id.positiveButton).setVisibility(View.GONE);
+            }
+            // set the cancel button
+            if (negativeButtonText != null) {
+                ((TextView) layout.findViewById(R.id.negativeButton)).setText(negativeButtonText);
+                if (negativeButtonClickListener != null) {
+                    layout.findViewById(R.id.negativeButton)
+                            .setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
+                                }
+                            });
+                }
 
 
-              } else {
-                  // if no confirm button just set the visibility to GONE
-                  layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
-              }
-              // set the content message
-              if (message != null) {
-                  ((TextView) layout.findViewById(R.id.message)).setText(message);
-              } else if (contentView != null) {
-                  // if no message set
-                  // add the contentView to the dialog body
-                  ((LinearLayout) layout.findViewById(R.id.content)).removeAllViews();
-                  LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-                  lp.setMargins(Utils.dip2px(context, 10), 0, Utils.dip2px(context, 10), 0);
-                  ((LinearLayout) layout.findViewById(R.id.content)).addView(contentView, lp);
-              }
-              dialog.setContentView(layout);
-              dialog.show();
-              WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-              params.width = WindowManager.LayoutParams.MATCH_PARENT;
-              params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-              dialog.getWindow().setAttributes(params);
+            } else {
+                // if no confirm button just set the visibility to GONE
+                layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
+            }
+            // set the content message
+            if (message != null) {
+                ((TextView) layout.findViewById(R.id.message)).setText(message);
+            } else if (contentView != null) {
+                // if no message set
+                // add the contentView to the dialog body
+                ((LinearLayout) layout.findViewById(R.id.content)).removeAllViews();
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                lp.setMargins(Utils.dip2px(context, 10), 0, Utils.dip2px(context, 10), 0);
+                ((LinearLayout) layout.findViewById(R.id.content)).addView(contentView, lp);
+            }
+            dialog.setContentView(layout);
+            dialog.show();
+            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(params);
         }
     }
- 
+
 }

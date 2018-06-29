@@ -2,21 +2,14 @@ package com.lingtuan.firefly.contact;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.content.*;
 import android.content.DialogInterface.OnKeyListener;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.ExpandableListView;
-
-import com.lingtuan.firefly.NextApplication;
 import com.lingtuan.firefly.R;
 import com.lingtuan.firefly.base.BaseActivity;
 import com.lingtuan.firefly.contact.adapter.AddContactFriendsAdapter;
@@ -29,13 +22,10 @@ import com.lingtuan.firefly.util.Constants;
 import com.lingtuan.firefly.util.LoadingDialog;
 import com.lingtuan.firefly.util.Utils;
 import com.lingtuan.firefly.util.netutil.NetRequestImpl;
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The address book friends page
@@ -99,8 +89,9 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
         new ContactThread().start();
 
     }
+
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
@@ -108,7 +99,7 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
                     Utils.intentServiceAction(AddContactFriendsNewUI.this, LoadDataService.ACTION_UPLOAD_CONTACT, null);
                     break;
                 case 1:
-                    if(mProgressDialog != null){
+                    if (mProgressDialog != null) {
                         mProgressDialog.dismiss();
                         mProgressDialog = null;
                     }
@@ -117,31 +108,26 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
             }
         }
     };
+
     class ContactThread extends Thread {
 
         @Override
         public void run() {
             mList = FinalUserDataBase.getInstance().getPhoneContactGroup(1);
-            if( mList== null || mList.size()<=0)
-            {
+            if (mList == null || mList.size() <= 0) {
                 mHandler.sendEmptyMessage(0);
-            }
-            else{
+            } else {
                 boolean hasContact = false;
-                for(int i=0;i<mList.size();i++)
-                {
+                for (int i = 0; i < mList.size(); i++) {
                     PhoneContactGroupVo vo = mList.get(i);
-                    if(vo.getContactList()!=null && vo.getContactList().size()>0)
-                    {
+                    if (vo.getContactList() != null && vo.getContactList().size() > 0) {
                         hasContact = true;
                         break;
                     }
                 }
-                if(hasContact)
-                {
+                if (hasContact) {
                     mHandler.sendEmptyMessage(1);
-                }
-                else{
+                } else {
                     mHandler.sendEmptyMessage(0);
                 }
 
@@ -149,6 +135,7 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
 
         }
     }
+
     class ContactThread2 extends Thread {
 
         @Override
@@ -157,8 +144,9 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
             mHandler.sendEmptyMessage(1);
         }
     }
+
     @Override
-    public void addContactCallback(String telephone, String relation,int addType, String friendNick) {
+    public void addContactCallback(String telephone, String relation, int addType, String friendNick) {
         if (TextUtils.equals("0", relation)) {
             if (addType == 0) {
 //                Uri smsToUri = Uri.parse("smsto:".concat(telephone));
@@ -170,7 +158,7 @@ public class AddContactFriendsNewUI extends BaseActivity implements AddContactLi
             }
         } else if (TextUtils.equals("1", relation)) {
             // Request to add buddy
-            NetRequestImpl.getInstance().addFriend(telephone, "","1", new RequestListener() {
+            NetRequestImpl.getInstance().addFriend(telephone, "", "1", new RequestListener() {
                 @Override
                 public void start() {
                     if (mProgressDialog != null) {

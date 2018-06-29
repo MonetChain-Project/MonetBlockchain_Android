@@ -2,20 +2,14 @@ package com.lingtuan.firefly.custom.picker;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import android.support.annotation.*;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.lingtuan.firefly.util.Utils;
-
 
 
 public abstract class ConfirmPopup<V extends View> extends BasicPopup<View> {
@@ -39,7 +33,7 @@ public abstract class ConfirmPopup<V extends View> extends BasicPopup<View> {
     protected int backgroundColor = Color.WHITE;
     private TextView cancelButton, submitButton;
     private View titleView;
-    private View headerView,footerView;
+    private View headerView, footerView;
 
     public ConfirmPopup(Activity activity) {
         super(activity);

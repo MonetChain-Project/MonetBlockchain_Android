@@ -2,7 +2,6 @@ package com.lingtuan.firefly.custom.gesturelock;
 
 import android.content.Context;
 
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -29,8 +28,7 @@ public class LockPatternUtil {
         } else if (value.contains("@")) {
             float px = context.getResources().getDimension(Integer.valueOf(value.replace("@", "")));
             return (int) px;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("can not use wrap_content " +
                     "or match_parent or fill_parent or others' illegal parameter");
         }

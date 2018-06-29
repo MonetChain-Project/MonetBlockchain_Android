@@ -1,4 +1,3 @@
-
 package com.lingtuan.firefly.custom;
 
 import android.annotation.TargetApi;
@@ -7,18 +6,10 @@ import android.database.DataSetObservable;
 import android.database.DataSetObserver;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.FrameLayout;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.WrapperListAdapter;
+import android.widget.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -31,66 +22,65 @@ import java.util.ArrayList;
  */
 public class GridViewWithHeaderAndFooter extends GridView {
 
-	private float mTouchX;
-	private float mTouchY;
+    private float mTouchX;
+    private float mTouchY;
     private OnTouchBlankPositionListener mTouchBlankPosListener;
     public static boolean DEBUG = false;
 
     /**
-       * 设置GridView的空白区域的触摸事件
-       * 
-       * @param listener
-       */
-     public void setOnTouchBlankPositionListener(
-                 OnTouchBlankPositionListener listener) {
-          mTouchBlankPosListener = listener;
-     }
-    
-     public interface OnTouchBlankPositionListener {
-          void onTouchBlank(MotionEvent event);
-     }
-     @Override
-     public boolean onTouchEvent(MotionEvent event) {
-         if (mTouchBlankPosListener != null) {
-             if (!isEnabled()) {
-                      return isClickable() || isLongClickable();
-              }
-              int action = event.getActionMasked();
-              float x = event.getX();
-              float y = event.getY();
-              final int motionPosition = pointToPosition((int) x, (int) y);
-              if (motionPosition == INVALID_POSITION) {
-              switch (action) {
-               case MotionEvent.ACTION_DOWN:
-                          mTouchX = x;
-                          mTouchY = y;
-                          if(mTouchBlankPosListener!=null)
-                          {
-                             mTouchBlankPosListener.onTouchBlank(event);
-                          }
-                         break;
-                case MotionEvent.ACTION_MOVE:
-                          if (Math.abs(mTouchX - x) > 10
-                                  || Math.abs(mTouchY - y) > 10) {
-                        	  if(mTouchBlankPosListener!=null)
-                              {
-                                 mTouchBlankPosListener.onTouchBlank(event);
-                              }
-                          }
-                          break;
-                case MotionEvent.ACTION_UP:
-                          mTouchX = 0;
-                          mTouchY = 0;
-                          if(mTouchBlankPosListener!=null)
-                          {
-                              mTouchBlankPosListener.onTouchBlank(event);
-                          }
-                          break;
-                      }
-                 }
-           }
+     * 设置GridView的空白区域的触摸事件
+     *
+     * @param listener
+     */
+    public void setOnTouchBlankPositionListener(
+            OnTouchBlankPositionListener listener) {
+        mTouchBlankPosListener = listener;
+    }
+
+    public interface OnTouchBlankPositionListener {
+        void onTouchBlank(MotionEvent event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mTouchBlankPosListener != null) {
+            if (!isEnabled()) {
+                return isClickable() || isLongClickable();
+            }
+            int action = event.getActionMasked();
+            float x = event.getX();
+            float y = event.getY();
+            final int motionPosition = pointToPosition((int) x, (int) y);
+            if (motionPosition == INVALID_POSITION) {
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        mTouchX = x;
+                        mTouchY = y;
+                        if (mTouchBlankPosListener != null) {
+                            mTouchBlankPosListener.onTouchBlank(event);
+                        }
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (Math.abs(mTouchX - x) > 10
+                                || Math.abs(mTouchY - y) > 10) {
+                            if (mTouchBlankPosListener != null) {
+                                mTouchBlankPosListener.onTouchBlank(event);
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mTouchX = 0;
+                        mTouchY = 0;
+                        if (mTouchBlankPosListener != null) {
+                            mTouchBlankPosListener.onTouchBlank(event);
+                        }
+                        break;
+                }
+            }
+        }
         return super.onTouchEvent(event);
-     }
+    }
+
     /**
      * A class that represents a fixed view in a list, for example a header at the top
      * or a footer at the bottom.

@@ -12,20 +12,10 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-
+import android.view.*;
 import com.lingtuan.firefly.util.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -261,7 +251,6 @@ public class WheelView extends View {
             paintCenterText.setTextSize(textSize);
         }
     }
-
 
 
     public void setDividerColor(@ColorInt int color) {
@@ -646,9 +635,9 @@ public class WheelView extends View {
 
     /**
      * According to the incoming object to get the value you want to display
-   *
-   * @param item The item of data source
-   * @return corresponds to the string displayed
+     *    *
+     *    * @param item The item of data source
+     *    * @return corresponds to the string displayed
      */
     private String obtainContentText(Object item) {
         if (item == null) {
@@ -914,7 +903,8 @@ public class WheelView extends View {
     public interface OnItemSelectListener {
         /**
          * Swipe to select the callback
-     *
+         *      *
+         *
          * @param index The index of the current selection    
          */
         void onSelected(int index);

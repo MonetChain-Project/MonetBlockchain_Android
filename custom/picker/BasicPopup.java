@@ -8,13 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.view.*;
 import android.widget.FrameLayout;
-
 import com.lingtuan.firefly.util.ScreenUtils;
 
 

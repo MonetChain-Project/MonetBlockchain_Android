@@ -1,22 +1,13 @@
-
 package com.lingtuan.firefly.custom;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
 import android.widget.CompoundButton;
-
 import com.lingtuan.firefly.R;
 
 
@@ -163,7 +154,7 @@ public class SwitchButton extends CompoundButton {
 
     /**
      * This method is called internal sets checked status, carry out various callback function, this method will delay to ensure the fluency of animation
-     * 
+     *
      * @param checked
      */
     private void setCheckedDelayed(final boolean checked) {
@@ -180,7 +171,7 @@ public class SwitchButton extends CompoundButton {
      * <p>
      * Changes the checked state of this button.
      * </p>
-     * 
+     *
      * @param checked true to check the button, false to uncheck it
      */
     public void setChecked(boolean checked) {
@@ -213,7 +204,7 @@ public class SwitchButton extends CompoundButton {
     /**
      * Register a callback to be invoked when the checked state of this button
      * changes.
-     * 
+     *
      * @param listener the callback to call on checked state change
      */
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
@@ -223,7 +214,7 @@ public class SwitchButton extends CompoundButton {
     /**
      * Register a callback to be invoked when the checked state of this button
      * changes. This callback is used for internal purpose only.
-     * 
+     *
      * @param listener the callback to call on checked state change
      * @hide
      */
@@ -311,7 +302,7 @@ public class SwitchButton extends CompoundButton {
 
     /**
      * 将btnPos转换成RealPos
-     * 
+     *
      * @param btnPos
      * @return
      */

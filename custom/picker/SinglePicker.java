@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.lingtuan.firefly.util.Utils;
 
 import java.text.DecimalFormat;

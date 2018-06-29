@@ -1,4 +1,3 @@
-
 package com.lingtuan.firefly.custom.viewpager;
 
 
@@ -17,7 +16,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-
 import com.lingtuan.firefly.R;
 
 
@@ -48,17 +46,17 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     private boolean mIsDragging;
 
     private final Runnable mFadeRunnable = new Runnable() {
-      @Override
-      public void run() {
-        if (!mFades) return;
+        @Override
+        public void run() {
+            if (!mFades) return;
 
-        final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
-        mPaint.setAlpha(alpha);
-        invalidate();
-        if (alpha > 0) {
-          postDelayed(this, FADE_FRAME_MS);
+            final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
+            mPaint.setAlpha(alpha);
+            invalidate();
+            if (alpha > 0) {
+                postDelayed(this, FADE_FRAME_MS);
+            }
         }
-      }
     };
 
     public UnderlinePageIndicator(Context context) {
@@ -68,9 +66,9 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     public UnderlinePageIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.vpiUnderlinePageIndicatorStyle);
     }
- 
+
     @SuppressWarnings("deprecation")
-	public UnderlinePageIndicator(Context context, AttributeSet attrs, int defStyle) {
+    public UnderlinePageIndicator(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (isInEditMode()) return;
 
@@ -92,7 +90,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.UnderlinePageIndicator_android_background);
         if (background != null) {
-          setBackgroundDrawable(background);
+            setBackgroundDrawable(background);
         }
 
         a.recycle();
@@ -171,7 +169,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-	public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent ev) {
         if (super.onTouchEvent(ev)) {
             return true;
         }
@@ -348,7 +346,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState)state;
+        SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         mCurrentPage = savedState.currentPage;
         requestLayout();

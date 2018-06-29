@@ -1,83 +1,84 @@
 package com.lingtuan.firefly.custom;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.lingtuan.firefly.R;
 
-public class MonIndicator extends View{
-	private ParamsCreator paramsCreator = new ParamsCreator(this.getContext());
-	private List<CircleWrapper> wrappers;
-	private int[] colors = new int[]{0xFFD3FFA4, 0xFFAAFD50, 0xFF7ED321};
-	private Paint paint = new Paint();
-	private RectF oval=new RectF();
+import java.util.ArrayList;
+import java.util.List;
 
-	private int circleRadius;//circle radius
-	private int circleSpacing;//circle spacing
-	private int increment = 2;//increment
-	
-	
-	public MonIndicator(Context context) {
-		super(context);
-	}
-	public MonIndicator(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.monindicator);
-		circleRadius = (int)a.getDimension(R.styleable.monindicator_circleRadius, paramsCreator.getDefaultCircleRadius());
-		circleSpacing = (int)a.getDimension(R.styleable.monindicator_circleSpacing, paramsCreator.getDefaultCircleSpacing());
-		int cycle = a.getInt(R.styleable.monindicator_cycle, 6000);//moinddicator cycle
-		cycle = cycle/2;
-		int number = (int)(cycle*1.0/1000 * 83);
-		this.increment = (int)(this.circleRadius * 2.0 / number);
-		this.increment = this.increment<=0?1:this.increment;
-		createWrappers();
-	}
+public class MonIndicator extends View {
+    private ParamsCreator paramsCreator = new ParamsCreator(this.getContext());
+    private List<CircleWrapper> wrappers;
+    private int[] colors = new int[]{0xFFD3FFA4, 0xFFAAFD50, 0xFF7ED321};
+    private Paint paint = new Paint();
+    private RectF oval = new RectF();
 
-	/**
-	 * create wrappers
-	 */
-	private void createWrappers(){
-		wrappers = new ArrayList<>();
-		int diameter = this.circleRadius * 2;
-		//first circle
-		CircleWrapper wrapper = new CircleWrapper();
-		wrapper.diameter = (int)(diameter*0.75);
-		wrapper.initDiameter = diameter;
-		wrapper.dynamicDiameter = wrapper.initDiameter;
-		wrapper.orientation = -1;
-		wrappers.add(wrapper);
-		//two cricle
-		wrapper = new CircleWrapper();
-		wrapper.diameter = diameter;
-		wrapper.initDiameter = (int)(diameter*0.5);
-		wrapper.dynamicDiameter = wrapper.initDiameter;
-		wrapper.orientation = 1;
-		wrappers.add(wrapper);
-		//three circle
-		wrapper = new CircleWrapper();
-		wrapper.diameter = diameter;
-		wrapper.initDiameter = (int)(diameter*0.25);
-		wrapper.dynamicDiameter = 0;
-		wrapper.orientation = 1;
-		wrappers.add(wrapper);
-	}
-	/**
-	 * on measure
-	 */
-	@Override
+    private int circleRadius;//circle radius
+    private int circleSpacing;//circle spacing
+    private int increment = 2;//increment
+
+
+    public MonIndicator(Context context) {
+        super(context);
+    }
+
+    public MonIndicator(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.monindicator);
+        circleRadius = (int) a.getDimension(R.styleable.monindicator_circleRadius, paramsCreator.getDefaultCircleRadius());
+        circleSpacing = (int) a.getDimension(R.styleable.monindicator_circleSpacing, paramsCreator.getDefaultCircleSpacing());
+        int cycle = a.getInt(R.styleable.monindicator_cycle, 6000);//moinddicator cycle
+        cycle = cycle / 2;
+        int number = (int) (cycle * 1.0 / 1000 * 83);
+        this.increment = (int) (this.circleRadius * 2.0 / number);
+        this.increment = this.increment <= 0 ? 1 : this.increment;
+        createWrappers();
+    }
+
+    /**
+     * create wrappers
+     */
+    private void createWrappers() {
+        wrappers = new ArrayList<>();
+        int diameter = this.circleRadius * 2;
+        //first circle
+        CircleWrapper wrapper = new CircleWrapper();
+        wrapper.diameter = (int) (diameter * 0.75);
+        wrapper.initDiameter = diameter;
+        wrapper.dynamicDiameter = wrapper.initDiameter;
+        wrapper.orientation = -1;
+        wrappers.add(wrapper);
+        //two cricle
+        wrapper = new CircleWrapper();
+        wrapper.diameter = diameter;
+        wrapper.initDiameter = (int) (diameter * 0.5);
+        wrapper.dynamicDiameter = wrapper.initDiameter;
+        wrapper.orientation = 1;
+        wrappers.add(wrapper);
+        //three circle
+        wrapper = new CircleWrapper();
+        wrapper.diameter = diameter;
+        wrapper.initDiameter = (int) (diameter * 0.25);
+        wrapper.dynamicDiameter = 0;
+        wrapper.orientation = 1;
+        wrappers.add(wrapper);
+    }
+
+    /**
+     * on measure
+     */
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
-    }	
-	/**
+    }
+
+    /**
      * measure width
      */
     private int measureWidth(int measureSpec) {
@@ -88,13 +89,14 @@ public class MonIndicator extends View{
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         } else {
-        	result = getDefaultWidth();
+            result = getDefaultWidth();
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
             }
         }
         return result;
     }
+
     /**
      * measure height
      */
@@ -102,7 +104,7 @@ public class MonIndicator extends View{
         int result;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
-        
+
         if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         } else {
@@ -113,133 +115,140 @@ public class MonIndicator extends View{
         }
         return result;
     }
+
     /**
      * get default width
      */
-    private int getDefaultWidth(){
-    	int defaultWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size()-1) * this.circleSpacing;
-    	return defaultWidth;
+    private int getDefaultWidth() {
+        int defaultWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
+        return defaultWidth;
     }
+
     /**
      * get default height
      */
-    private int getDefaultHeight(){
-    	return this.circleRadius * 2;
+    private int getDefaultHeight() {
+        return this.circleRadius * 2;
     }
+
     @Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-		paint.setAntiAlias(true);
-		paint.setStyle(Paint.Style.FILL);
-		drawCircle01(canvas);
-		drawCircle02(canvas);
-		drawCircle03(canvas);
-		this.invalidate();
-	}
-    /**
-     * draw circle
-     */
-    private void drawCircle01(Canvas canvas){
-    	paint.setColor(colors[0]);
-    	CircleWrapper wrapper = wrappers.get(0);
-    	wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
-    	if(wrapper.dynamicDiameter >= wrapper.diameter){
-    		wrapper.orientation = -1;
-    		wrapper.dynamicDiameter = wrapper.diameter;
-    	}
-    	if(wrapper.dynamicDiameter <= 0){
-    		wrapper.orientation = 1;
-    		wrapper.dynamicDiameter = 0;
-    	}
-    	int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size()-1) * this.circleSpacing;
-    	int centerX = this.getWidth()/2 - totalWidth/2 + this.circleRadius;
-    	int centerY = this.getHeight()/2;
-    	
-		oval.left = centerX - wrapper.dynamicDiameter/2 ;
-		oval.top = centerY - wrapper.dynamicDiameter/2;
-		oval.right = oval.left + wrapper.dynamicDiameter;
-		oval.bottom = oval.top + wrapper.dynamicDiameter;
-		canvas.drawArc(oval, 0, 360, false, paint);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL);
+        drawCircle01(canvas);
+        drawCircle02(canvas);
+        drawCircle03(canvas);
+        this.invalidate();
     }
+
     /**
      * draw circle
      */
-    private void drawCircle02(Canvas canvas){
-    	paint.setColor(colors[1]);
-    	CircleWrapper wrapper = wrappers.get(1);
-    	CircleWrapper wrapper01 = wrappers.get(0);
-    	if(wrapper01.dynamicDiameter == wrapper01.initDiameter){
-    		wrapper.dynamicDiameter = wrapper.initDiameter;
-    	}else{
-    		wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
-        	if(wrapper.dynamicDiameter >= wrapper.diameter){
-        		wrapper.orientation = -1;
-        		wrapper.dynamicDiameter = wrapper.diameter;
-        	}
-        	if(wrapper.dynamicDiameter <= 0){
-        		wrapper.orientation = 1;
-        		wrapper.dynamicDiameter = 0;
-        	}
-    	}
-    	
-    	int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size()-1) * this.circleSpacing;
-    	int centerX = this.getWidth()/2 - totalWidth/2 + (wrapper.diameter + this.circleSpacing) * 1 + this.circleRadius;
-    	int centerY = this.getHeight()/2;
-    	
-		oval.left = centerX - wrapper.dynamicDiameter/2 ;
-		oval.top = centerY - wrapper.dynamicDiameter/2;
-		oval.right = oval.left + wrapper.dynamicDiameter;
-		oval.bottom = oval.top + wrapper.dynamicDiameter;
-		canvas.drawArc(oval, 0, 360, false, paint);
+    private void drawCircle01(Canvas canvas) {
+        paint.setColor(colors[0]);
+        CircleWrapper wrapper = wrappers.get(0);
+        wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
+        if (wrapper.dynamicDiameter >= wrapper.diameter) {
+            wrapper.orientation = -1;
+            wrapper.dynamicDiameter = wrapper.diameter;
+        }
+        if (wrapper.dynamicDiameter <= 0) {
+            wrapper.orientation = 1;
+            wrapper.dynamicDiameter = 0;
+        }
+        int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
+        int centerX = this.getWidth() / 2 - totalWidth / 2 + this.circleRadius;
+        int centerY = this.getHeight() / 2;
+
+        oval.left = centerX - wrapper.dynamicDiameter / 2;
+        oval.top = centerY - wrapper.dynamicDiameter / 2;
+        oval.right = oval.left + wrapper.dynamicDiameter;
+        oval.bottom = oval.top + wrapper.dynamicDiameter;
+        canvas.drawArc(oval, 0, 360, false, paint);
     }
+
     /**
      * draw circle
      */
-    private void drawCircle03(Canvas canvas){
-    	paint.setColor(colors[2]);
-    	CircleWrapper wrapper = wrappers.get(2);
-    	CircleWrapper wrapper01 = wrappers.get(0);
-    	if(wrapper01.dynamicDiameter == wrapper01.initDiameter){
-    		wrapper.dynamicDiameter = wrapper.initDiameter;
-    	}else{
-    		wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
-        	if(wrapper.dynamicDiameter >= wrapper.diameter){
-        		wrapper.orientation = -1;
-        		wrapper.dynamicDiameter = wrapper.diameter;
-        	}
-        	if(wrapper.dynamicDiameter <= 0){
-        		wrapper.orientation = 1;
-        		wrapper.dynamicDiameter = 0;
-        	}
-    	}
-    	
-    	int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size()-1) * this.circleSpacing;
-    	int centerX = this.getWidth()/2 - totalWidth/2 + (wrapper.diameter + this.circleSpacing) * 2 + this.circleRadius;
-    	int centerY = this.getHeight()/2;
-    	
-		oval.left = centerX - wrapper.dynamicDiameter/2 ;
-		oval.top = centerY - wrapper.dynamicDiameter/2;
-		oval.right = oval.left + wrapper.dynamicDiameter;
-		oval.bottom = oval.top + wrapper.dynamicDiameter;
-		canvas.drawArc(oval, 0, 360, false, paint);
+    private void drawCircle02(Canvas canvas) {
+        paint.setColor(colors[1]);
+        CircleWrapper wrapper = wrappers.get(1);
+        CircleWrapper wrapper01 = wrappers.get(0);
+        if (wrapper01.dynamicDiameter == wrapper01.initDiameter) {
+            wrapper.dynamicDiameter = wrapper.initDiameter;
+        } else {
+            wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
+            if (wrapper.dynamicDiameter >= wrapper.diameter) {
+                wrapper.orientation = -1;
+                wrapper.dynamicDiameter = wrapper.diameter;
+            }
+            if (wrapper.dynamicDiameter <= 0) {
+                wrapper.orientation = 1;
+                wrapper.dynamicDiameter = 0;
+            }
+        }
+
+        int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
+        int centerX = this.getWidth() / 2 - totalWidth / 2 + (wrapper.diameter + this.circleSpacing) * 1 + this.circleRadius;
+        int centerY = this.getHeight() / 2;
+
+        oval.left = centerX - wrapper.dynamicDiameter / 2;
+        oval.top = centerY - wrapper.dynamicDiameter / 2;
+        oval.right = oval.left + wrapper.dynamicDiameter;
+        oval.bottom = oval.top + wrapper.dynamicDiameter;
+        canvas.drawArc(oval, 0, 360, false, paint);
+    }
+
+    /**
+     * draw circle
+     */
+    private void drawCircle03(Canvas canvas) {
+        paint.setColor(colors[2]);
+        CircleWrapper wrapper = wrappers.get(2);
+        CircleWrapper wrapper01 = wrappers.get(0);
+        if (wrapper01.dynamicDiameter == wrapper01.initDiameter) {
+            wrapper.dynamicDiameter = wrapper.initDiameter;
+        } else {
+            wrapper.dynamicDiameter = wrapper.dynamicDiameter + wrapper.orientation * this.increment;
+            if (wrapper.dynamicDiameter >= wrapper.diameter) {
+                wrapper.orientation = -1;
+                wrapper.dynamicDiameter = wrapper.diameter;
+            }
+            if (wrapper.dynamicDiameter <= 0) {
+                wrapper.orientation = 1;
+                wrapper.dynamicDiameter = 0;
+            }
+        }
+
+        int totalWidth = this.circleRadius * 2 * this.wrappers.size() + (this.wrappers.size() - 1) * this.circleSpacing;
+        int centerX = this.getWidth() / 2 - totalWidth / 2 + (wrapper.diameter + this.circleSpacing) * 2 + this.circleRadius;
+        int centerY = this.getHeight() / 2;
+
+        oval.left = centerX - wrapper.dynamicDiameter / 2;
+        oval.top = centerY - wrapper.dynamicDiameter / 2;
+        oval.right = oval.left + wrapper.dynamicDiameter;
+        oval.bottom = oval.top + wrapper.dynamicDiameter;
+        canvas.drawArc(oval, 0, 360, false, paint);
     }
 
     /**
      * set color
+     *
      * @param colors
      */
-	public void setColors(int[] colors) {
-		if(colors == null || colors.length == 0)
-			return ;
-		for(int i = 0; i<colors.length&&i<this.colors.length; i++){
-			this.colors[i] = colors[i];
-		}
-	}
+    public void setColors(int[] colors) {
+        if (colors == null || colors.length == 0)
+            return;
+        for (int i = 0; i < colors.length && i < this.colors.length; i++) {
+            this.colors[i] = colors[i];
+        }
+    }
 
-    private class CircleWrapper{
-    	private int diameter;//circle diameter
-    	private int initDiameter;//default diameter
-    	private int dynamicDiameter;//dynamic diameter
-    	private int orientation;//Direction, that is, increase or decrease 1: Increase -1 to decrease
+    private class CircleWrapper {
+        private int diameter;//circle diameter
+        private int initDiameter;//default diameter
+        private int dynamicDiameter;//dynamic diameter
+        private int orientation;//Direction, that is, increase or decrease 1: Increase -1 to decrease
     }
 }

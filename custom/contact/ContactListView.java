@@ -8,155 +8,135 @@ import android.view.MotionEvent;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-public class ContactListView extends ListView
-{
+public class ContactListView extends ListView {
 
-	protected boolean mIsFastScrollEnabled = false;
-	protected IndexScroller mScroller = null;
-	protected GestureDetector mGestureDetector = null;
+    protected boolean mIsFastScrollEnabled = false;
+    protected IndexScroller mScroller = null;
+    protected GestureDetector mGestureDetector = null;
 
-	// additional customization
-	protected boolean inSearchMode = false; // whether is in search mode
-	protected boolean autoHide = false; // alway show the scroller
+    // additional customization
+    protected boolean inSearchMode = false; // whether is in search mode
+    protected boolean autoHide = false; // alway show the scroller
 
-	private Context context;
-	public ContactListView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		this.context=context;
-		createScroller(context);
-	}
+    private Context context;
 
-	public ContactListView(Context context, AttributeSet attrs, int defStyle)
-	{
-		super(context, attrs, defStyle);
-		createScroller(context);
-	}
+    public ContactListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+        createScroller(context);
+    }
 
-	public IndexScroller getScroller()
-	{
-		return mScroller;
-	}
+    public ContactListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        createScroller(context);
+    }
 
-	@Override
-	public boolean isFastScrollEnabled()
-	{
-		return mIsFastScrollEnabled;
-	}
+    public IndexScroller getScroller() {
+        return mScroller;
+    }
+
+    @Override
+    public boolean isFastScrollEnabled() {
+        return mIsFastScrollEnabled;
+    }
 
 
-	// override this if necessary for custom scroller
-	public void createScroller(Context context)
-	{
-		mScroller = new IndexScroller(getContext(), this);
-		mScroller.setAutoHide(autoHide);
-		mScroller.setShowIndexContainer(true);
+    // override this if necessary for custom scroller
+    public void createScroller(Context context) {
+        mScroller = new IndexScroller(getContext(), this);
+        mScroller.setAutoHide(autoHide);
+        mScroller.setShowIndexContainer(true);
 
-		if (autoHide)
-			mScroller.hide();
-		else
-			mScroller.show();
-	}
-	public void setStartIndex(int startIndex)
-    {
-		if(mScroller!=null)
-		{
-			mScroller.setStartIndex(startIndex);
-		}
-	}
-	@Override
-	public void setFastScrollEnabled(boolean enabled)
-	{
-		mIsFastScrollEnabled = enabled;
-		if (mIsFastScrollEnabled)
-		{
-			if (mScroller == null)
-			{
-				createScroller(context);
-			}
-		} else
-		{
-			if (mScroller != null)
-			{
-				mScroller.hide();
-				mScroller = null;
-			}
-		}
-	}
+        if (autoHide)
+            mScroller.hide();
+        else
+            mScroller.show();
+    }
 
-	@Override
-	public void draw(Canvas canvas)
-	{
-		super.draw(canvas);
+    public void setStartIndex(int startIndex) {
+        if (mScroller != null) {
+            mScroller.setStartIndex(startIndex);
+        }
+    }
 
-		// Overlay index bar
-		if (!inSearchMode) // dun draw the scroller if not in search mode
-		{
-			if (mScroller != null)
-				mScroller.draw(canvas);
-		}
+    @Override
+    public void setFastScrollEnabled(boolean enabled) {
+        mIsFastScrollEnabled = enabled;
+        if (mIsFastScrollEnabled) {
+            if (mScroller == null) {
+                createScroller(context);
+            }
+        } else {
+            if (mScroller != null) {
+                mScroller.hide();
+                mScroller = null;
+            }
+        }
+    }
 
-	}
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
 
-	@Override
-	public boolean onTouchEvent(MotionEvent ev)
-	{
-		// Intercept ListView's touch event
-		if (mScroller != null && mScroller.onTouchEvent(ev))
-			return true;
+        // Overlay index bar
+        if (!inSearchMode) // dun draw the scroller if not in search mode
+        {
+            if (mScroller != null)
+                mScroller.draw(canvas);
+        }
 
-		if (mGestureDetector == null)
-		{
-			mGestureDetector = new GestureDetector(getContext(),
-					new GestureDetector.SimpleOnGestureListener()
-					{
+    }
 
-						@Override
-						public boolean onFling(MotionEvent e1, MotionEvent e2,
-											   float velocityX, float velocityY)
-						{
-							// If fling happens, index bar shows
-							mScroller.show();
-							return super.onFling(e1, e2, velocityX, velocityY);
-						}
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        // Intercept ListView's touch event
+        if (mScroller != null && mScroller.onTouchEvent(ev))
+            return true;
 
-					});
-		}
-		mGestureDetector.onTouchEvent(ev);
+        if (mGestureDetector == null) {
+            mGestureDetector = new GestureDetector(getContext(),
+                    new GestureDetector.SimpleOnGestureListener() {
 
-		return super.onTouchEvent(ev);
-	}
+                        @Override
+                        public boolean onFling(MotionEvent e1, MotionEvent e2,
+                                               float velocityX, float velocityY) {
+                            // If fling happens, index bar shows
+                            mScroller.show();
+                            return super.onFling(e1, e2, velocityX, velocityY);
+                        }
 
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev)
-	{
-		return false;
-	}
+                    });
+        }
+        mGestureDetector.onTouchEvent(ev);
 
-	@Override
-	public void setAdapter(ListAdapter adapter)
-	{
-		super.setAdapter(adapter);
-		if (mScroller != null)
-			mScroller.setAdapter(adapter);
-	}
+        return super.onTouchEvent(ev);
+    }
 
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh)
-	{
-		super.onSizeChanged(w, h, oldw, oldh);
-		if (mScroller != null)
-			mScroller.onSizeChanged(w, h, oldw, oldh);
-	}
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return false;
+    }
 
-	public boolean isInSearchMode()
-	{
-		return inSearchMode;
-	}
+    @Override
+    public void setAdapter(ListAdapter adapter) {
+        super.setAdapter(adapter);
+        if (mScroller != null)
+            mScroller.setAdapter(adapter);
+    }
 
-	public void setInSearchMode(boolean inSearchMode)
-	{
-		this.inSearchMode = inSearchMode;
-	}
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (mScroller != null)
+            mScroller.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    public boolean isInSearchMode() {
+        return inSearchMode;
+    }
+
+    public void setInSearchMode(boolean inSearchMode) {
+        this.inSearchMode = inSearchMode;
+    }
 
 }
