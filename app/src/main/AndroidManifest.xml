@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="vergecurrency.vergewallet">
+
+    <!-- Features -->
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".view.ui.activity.WalletActivity"
+            android:label="@string/app_name" />
+        <activity android:name=".view.ui.activity.firstlaunch.FirstLaunchActivity" />
+        <activity android:name=".view.ui.activity.firstlaunch.PaperkeyInstructionsActivity" />
+        <activity android:name=".view.ui.activity.firstlaunch.PaperkeyDistributionActivity" />
+        <activity android:name=".view.ui.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.ui.activity.firstlaunch.PaperkeyVerificationActivity" />
+        <activity android:name=".view.ui.activity.firstlaunch.EndSetupActivity" />
+        <activity android:name=".view.ui.activity.settings.TorSettingsActivity" />
+        <activity android:name=".view.ui.activity.settings.PaperkeyActivity" />
+        <activity android:name=".view.ui.activity.settings.DisconnectActivity" />
+        <activity android:name=".view.ui.activity.settings.DonateActivity" />
+        <activity android:name=".view.ui.activity.settings.SelectCurrencyActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
+    </application>
+
+
+</manifest>

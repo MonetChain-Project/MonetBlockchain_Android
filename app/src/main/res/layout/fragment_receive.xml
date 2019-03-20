@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_wallet_receive"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/wallet_receive_card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/wallet_card_background_receive"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bg_card_receive" />
+
+        <TextView
+            android:id="@+id/receive_address_card"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="200dp"
+            android:text="@string/receive_current_code"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/qr_code_receive"
+            android:layout_width="205dp"
+            android:layout_height="205dp"
+            android:adjustViewBounds="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/form_rounded_rect_white_bord"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="35dp"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/wallet_receive_recipient_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wallet_receive_card_layout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_sync" />
+
+        <EditText
+            android:id="@+id/send_balance_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:text="@string/receive_current_code"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wallet_receive_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wallet_receive_recipient_address"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_currency_exchange" />
+
+        <EditText
+            android:id="@+id/send_balance_address2"
+            android:layout_width="match_parent"
+            android:inputType="numberDecimal"
+            android:layout_height="wrap_content"
+            android:hint="Amount to receive" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wallet_receive_stealth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wallet_receive_amount"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_stealth" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/wallet_receive_switch_stealth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:text="@string/tor_settings_obfuscate_on_off"
+            android:textColor="@color/verge_colorPrimaryDark" />
+    </LinearLayout>
+
+
+    <com.omega_r.libs.OmegaCenterIconButton
+        android:id="@+id/receive_button_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/form_rounded_white_rect"
+        android:backgroundTint="@color/verge_colorPrimary"
+        android:drawableStart="@drawable/icon_send"
+        android:drawableTint="@color/verge_colorBackground"
+        android:text="Share"
+        android:textColor="@color/verge_colorBackground"
+        android:textSize="18dp" />
+
+
+</RelativeLayout>

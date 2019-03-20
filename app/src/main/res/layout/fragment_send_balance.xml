@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/transaction_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/bg_creditcard" />
+
+    <TextView
+        android:id="@+id/transaction_total_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction_background"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="-120dp"
+        android:text="-XVG80.10"
+        android:textAlignment="textEnd"
+        android:textColor="@color/verge_colorBackgroundTwo"
+        android:textSize="30dp"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/card_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transaction_total_amount"
+        android:layout_marginEnd="40dp"
+        android:text="**** 1234"
+        android:textAlignment="textEnd"
+        android:textColor="@color/verge_colorBackgroundTwo"
+        android:textSize="18dp"
+        tools:ignore="SpUsage" />
+
+    <LinearLayout
+        android:id="@+id/recipient_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_code"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_qrcode" />
+
+        <EditText
+            android:id="@+id/send_balance_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipient address" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/amount_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipient_address"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_currency_exchange" />
+
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Amount" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/amount_layout"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Internal memo (optional)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gift to Justin" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_open_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/form_rounded_white_rect"
+        android:backgroundTint="@color/verge_colorPrimary"
+        android:scaleType="fitCenter"
+        android:text="Send XVG"
+        android:textColor="@color/verge_colorBackgroundTwo"
+        android:textSize="18sp" />
+
+</RelativeLayout>
