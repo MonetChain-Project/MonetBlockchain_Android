@@ -78,7 +78,28 @@ public class DiscussGroupListUI extends BaseActivity implements OnItemClickListe
 		groupLv.setOnItemClickListener(this);
 	}
 	
+
+
 	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.app_btn_right:
+			Intent intent  = new Intent(DiscussGroupListUI.this,SelectContactUI.class);
+			intent.putExtra("isMultipleChoice", true);
+			startActivityForResult(intent, 0);
+			Utils.openNewActivityAnim(DiscussGroupListUI.this, false);
+			break;
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+	
+	
+		@Override
 	protected void initData() {
 		
 		if(getIntent() != null ){
@@ -115,25 +136,6 @@ public class DiscussGroupListUI extends BaseActivity implements OnItemClickListe
 
 		
 	}
-
-	@Override
-	public void onClick(View v) {
-		super.onClick(v);
-		switch (v.getId()) {
-		case R.id.app_btn_right:
-			Intent intent  = new Intent(DiscussGroupListUI.this,SelectContactUI.class);
-			intent.putExtra("isMultipleChoice", true);
-			startActivityForResult(intent, 0);
-			Utils.openNewActivityAnim(DiscussGroupListUI.this, false);
-			break;
-		}
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
-	
 
 	/**
 	 * Create a group chat
