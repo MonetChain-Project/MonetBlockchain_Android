@@ -8,7 +8,26 @@ import android.graphics.PorterDuff.Mode;
  * Photo fillet processing
  */
 public class BitmapFillet {
-
+   /**
+     * Upper left corner
+     */
+    public static final int LEFT_TOP = 1047120;
+    /**
+     * The upper right corner
+     */
+    public static final int RIGHT_TOP = 1147120;
+    /**
+     * The lower left corner
+     */
+    public static final int LEFT_BOTTOM = 1247120;
+    /**
+     * The lower right corner
+     */
+    public static final int RIGHT_BOTTOM = 1347120;
+    /**
+     * round
+     */
+    public static final int ROUND = 1447120;
     /**
      * All rounded corners
      */
@@ -29,26 +48,7 @@ public class BitmapFillet {
      * The rounded corners
      */
     public static final int BOTTOM = 847120;
-    /**
-     * Upper left corner
-     */
-    public static final int LEFT_TOP = 1047120;
-    /**
-     * The upper right corner
-     */
-    public static final int RIGHT_TOP = 1147120;
-    /**
-     * The lower left corner
-     */
-    public static final int LEFT_BOTTOM = 1247120;
-    /**
-     * The lower right corner
-     */
-    public static final int RIGHT_BOTTOM = 1347120;
-    /**
-     * round
-     */
-    public static final int ROUND = 1447120;
+ 
 
     /**
      * Specify the trimming of the picture, the rounded images processing

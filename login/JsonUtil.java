@@ -68,13 +68,11 @@ public class JsonUtil {
             }
             array.put(array.length(),userInfoVo.getLocalId());
             MySharedPrefs.write(mContext, MySharedPrefs.FILE_USER, MySharedPrefs.KEY_LOCAL_USERINFO,array.toString());
-
             JSONObject jsonObject = new JSONObject();
             JSONObject data = new JSONObject();
             data.put(JsonConstans.Token,userInfoVo.getToken());
             data.put(JsonConstans.Mid,userInfoVo.getMid());
             data.put(JsonConstans.Password,userInfoVo.getPassword());
-
             data.put(JsonConstans.Username,userInfoVo.getUserName());
             data.put(JsonConstans.Localid,userInfoVo.getLocalId());
             jsonObject.put(userInfoVo.getLocalId(),data);
@@ -108,7 +106,6 @@ public class JsonUtil {
                         data.put(JsonConstans.Token,userInfoVo.getToken());
                         data.put(JsonConstans.Mid,userInfoVo.getMid());
                         data.put(JsonConstans.Password,userInfoVo.getPassword());
-
                         data.put(JsonConstans.Localid,userInfoVo.getLocalId());
                         data.put(JsonConstans.Username,userInfoVo.getUserName());
                         data.put(JsonConstans.Age,userInfoVo.getAge());
